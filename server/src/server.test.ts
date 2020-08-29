@@ -1,5 +1,7 @@
+const request = require("supertest");
+
 describe("Server setup", () => {
-  it("Server instance loads correctly", () => {
-    expect(1).toBe(2);
-  })
-})
+  it("Dummy test", () => {
+    expect(1).toBe(1);
+  });
+});

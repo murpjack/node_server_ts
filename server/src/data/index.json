@@ -1,0 +1,18 @@
+{
+	"data": [{
+			"name": "Jack",
+			"age": 28,
+			"favouriteColour": "Orange"
+		},
+		{
+			"name": "Ben",
+			"age": 38,
+			"favouriteColour": "Green"
+		},
+		{
+			"name": "Dan",
+			"age": 48,
+			"favouriteColour": "Cyan"
+		}
+		]
+}
