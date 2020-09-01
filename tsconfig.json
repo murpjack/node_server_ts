@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "removeComments": true,
         "esModuleInterop": true,
         "target": "es6",
         "forceConsistentCasingInFileNames": true,
@@ -8,17 +9,13 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "server/dist",
-        "baseUrl": ".",
-        "paths": {
-            "*": [
-                "node_modules/*"
-            ]
-        }
+        "baseUrl": "."
     },
     "include": [
         "server/src/**/*"
     ],
     "exclude": [
-      "node_modules"
+      "node_modules",
+      "**/*.test.ts",
     ]
 }

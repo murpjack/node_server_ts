@@ -1,1 +1,5 @@
 node_modules
+server/dist/**
+server/src/**/*.js
+server/src/**/*.map
+coverage
