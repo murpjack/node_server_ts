@@ -20,6 +20,12 @@
     "TDD",
     "Api"
   ],
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
   "author": "Jack Murphy",
   "license": "ISC",
   "bugs": {

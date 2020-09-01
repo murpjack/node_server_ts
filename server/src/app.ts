@@ -1,2 +1,3 @@
-const express = require('express');
-exports.app = express();
+import * as express from'express';
+export const app = express();
+export default app;

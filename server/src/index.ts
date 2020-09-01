@@ -1,6 +1,7 @@
-const app = require("./app");
+import app from'./app';
+import router from "./routes";
 
 const PORT = 8080;
 
-// app.use("/", (req,res) => res.json({name: "Jack"}));
+app.use("/api", router);
 app.listen(PORT, () => console.log(`Server on http://localhost:${PORT}/`));
