@@ -2,7 +2,6 @@
     "compilerOptions": {
         "module": "commonjs",
         "removeComments": true,
-        "esModuleInterop": true,
         "target": "es6",
         "forceConsistentCasingInFileNames": true,
         "noImplicitAny": true,
@@ -16,6 +15,7 @@
     ],
     "exclude": [
       "node_modules",
+      "server/src/_test_/**/*",
       "**/*.test.ts",
     ]
 }
