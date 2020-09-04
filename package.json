@@ -20,8 +20,10 @@
     "TDD",
     "Api"
   ],
+  "type": "module",
   "jest": {
     "testEnvironment": "node",
+    "preset": "ts-jest",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
     ]
