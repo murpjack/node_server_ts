@@ -1,8 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = require("./app");
-const routes_1 = require("./routes");
+import app from './app';
+import db from "./db";
 const PORT = 8080;
-app_1.default.use("/api", routes_1.default);
-app_1.default.listen(PORT, () => console.log(`Server on http://localhost:${PORT}/`));
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+app.listen(PORT, () => console.log(`Server on http://localhost:${PORT}/`));
 //# sourceMappingURL=index.js.map

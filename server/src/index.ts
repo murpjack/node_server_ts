@@ -1,12 +1,11 @@
 import app from'./app';
-import router from "./routes";
-
+import db from "./db";
+// import router from "./routes";
 const PORT = 8080;
 
-app.use("/api", router);
+// DATABASE
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-app.get('/test', async (req, res) => {
-  res.json({message: 'pass!'})
-})
+// app.use("/api", router);
 
 app.listen(PORT, () => console.log(`Server on http://localhost:${PORT}/`));

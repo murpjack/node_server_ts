@@ -1,5 +1,9 @@
 const request = require("supertest");
+import setupDB from './test-setup';
 import app from "../app";
+
+const apiBaseUrl = "/api/user";
+setupDB();
 
 describe("Setup", () => {
   it("is just testing.", () => {
@@ -8,31 +12,36 @@ describe("Setup", () => {
 });
 
 describe("API", () => {
-	it('gets the test endpoint', async done => {
-	  const response = await request(app).get('/api/test')
+	it("reaches route '/getallusers' and returns status true.", async done => {
+	  const response = await request(app).get(apiBaseUrl + "/getallusers")
+	  console.log(response);
 	  expect(response.status).toBe(200);
-	  expect(response.body.message).toBe('pass!');
-	  done()
+	  expect(response.body.success).toBe(true);
+	  done();
 	})
 
-	it("should create a new user.", () => {
-	  expect(1).toBe(2);
-	});
+	// it("should GET a list from DB.", async done => {
+	//   const response = await request(app).get(apiBaseUrl + "/getallusers")
+	//   expect(1).toBe(2);
 
-	it("should NOT create a new user with duplicate userID.", () => {
-	  expect(1).toBe(2);
-	});
+	//   done();
+	// });
 
-	it("should return a list from DB.", () => {
-	  expect(1).toBe(2);
-	});
+	// it("should create a new user.", async done => {
+	//   expect(1).toBe(2);
+	//   done();
+	// });
 
-	it("should UPDATE details of an existing user.", () => {
-	  expect(1).toBe(2);
-	});
+	// it("should NOT create a new user with duplicate userID.", () => {
+	//   expect(1).toBe(2);
+	// });
 
-	it("should DELETE an existing user from DB.", () => {
-	  expect(1).toBe(2);
-	});
+	// it("should UPDATE details of an existing user.", () => {
+	//   expect(1).toBe(2);
+	// });
+
+	// it("should DELETE an existing user from DB.", () => {
+	//   expect(1).toBe(2);
+	// });
 
 });

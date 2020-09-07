@@ -1,7 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.app = void 0;
-const express = require("express");
-exports.app = express();
-exports.default = exports.app;
+import express from 'express';
+import router from "./routes";
+export const app = express();
+app.use("/api", router);
+export default app;
 //# sourceMappingURL=app.js.map

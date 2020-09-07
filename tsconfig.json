@@ -18,5 +18,6 @@
       "node_modules",
       "server/src/_test_/**/*",
       "**/*.test.ts",
+      "types.ts"
     ]
 }
