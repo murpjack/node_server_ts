@@ -1,15 +1,32 @@
 const request = require("supertest");
-import setupDB from './test-setup';
+import * as dbHandler from './db-handler';
 import app from "../app";
-
 const apiBaseUrl = "/api/user";
-setupDB();
+
+console.log(2,dbHandler);
 
 describe("Setup", () => {
   it("is just testing.", () => {
     expect(1).toBe(1);
   });
 });
+
+
+/**
+ * Connect to a new in-memory database before running any tests.
+ */
+beforeAll(async () => await dbHandler.connect());
+
+/**
+ * Clear all test data after every test.
+ */
+afterEach(async () => await dbHandler.clearDatabase());
+
+/**
+ * Remove and close the db and server.
+ */
+afterAll(async () => await dbHandler.closeDatabase());
+
 
 describe("API", () => {
 	it("reaches route '/getallusers' and returns status true.", async done => {
