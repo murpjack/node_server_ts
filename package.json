@@ -43,7 +43,6 @@
     "jest": "<27.0.0-0",
     "mongodb-memory-server": "^6.6.7",
     "onchange": "^7.0.2",
-    "prettier": "^2.1.1",
     "serve": "^11.3.2",
     "source-map-support": "^0.5.19",
     "supertest": "^4.0.2",

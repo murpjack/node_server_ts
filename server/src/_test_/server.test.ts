@@ -1,16 +1,13 @@
 const request = require("supertest");
-import * as dbHandler from './db-handler';
+import * as dbHandler from "./db-handler";
 import app from "../app";
 const apiBaseUrl = "/api/user";
 
-console.log(2,dbHandler);
-
 describe("Setup", () => {
-  it("is just testing.", () => {
-    expect(1).toBe(1);
-  });
+	it("is just testing.", () => {
+		expect(1).toBe(1);
+	});
 });
-
 
 /**
  * Connect to a new in-memory database before running any tests.
@@ -27,15 +24,15 @@ afterEach(async () => await dbHandler.clearDatabase());
  */
 afterAll(async () => await dbHandler.closeDatabase());
 
-
 describe("API", () => {
-	it("reaches route '/getallusers' and returns status true.", async done => {
-	  const response = await request(app).get(apiBaseUrl + "/getallusers")
-	  console.log(response);
-	  expect(response.status).toBe(200);
-	  expect(response.body.success).toBe(true);
-	  done();
-	})
+	it("reaches route '/getallusers' and returns status true.", async (done) => {
+		const response = await request(app).get(apiBaseUrl + "/getallusers");
+		// expect(response.status).toBe(200);
+		// expect(response.body.success).toBe(true);
+		expect(1).toBe(2);
+
+		done();
+	});
 
 	// it("should GET a list from DB.", async done => {
 	//   const response = await request(app).get(apiBaseUrl + "/getallusers")
@@ -60,5 +57,4 @@ describe("API", () => {
 	// it("should DELETE an existing user from DB.", () => {
 	//   expect(1).toBe(2);
 	// });
-
 });

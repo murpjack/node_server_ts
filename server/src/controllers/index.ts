@@ -7,24 +7,26 @@ interface userType {
   favouriteColour: string;
 }
 
-
 export const getAllUsers = async (req: any, res: any) => {
-  await userModel.find({}, (err: any, users: userType[]) => {
-    // console.log(users);
-    if (err) {
-      return res.status(400).json({ success: false, error: err });
-    }
+  await userModel
+    .find({}, (err: any, users: userType[]) => {
+      // console.log(users);
+      if (err) {
+        return res.status(400).json({ success: false, error: err });
+      }
 
-    if (!users.length) {
-      return res.status(404).json({ success: false, error: `User not found` });
-    }
+      if (!users.length) {
+        return res
+          .status(404)
+          .json({ success: false, error: `User not found` });
+      }
 
-    return res.status(200).json({ success: true, data: users });
-  }).catch((err: any) => console.log(err));
-
+      return res.status(200).json({ success: true, data: users });
+    })
+    .catch((err: any) => console.log(err));
 };
 
-export const createUser = (req, res) => {
+export const createUser = (req: any, res: any) => {
   const body = req.body;
   console.log("res", res);
 
@@ -61,9 +63,8 @@ export const createUser = (req, res) => {
 };
 
 export const createMockUser = async (user) => {
-    if (!user)
-        throw new Error('Missing user');
+  if (!user) throw new Error("Missing user");
 
-    await userModel.create(user);
-}
+  await userModel.create(user);
+};
 export default { getAllUsers, createUser, createMockUser };

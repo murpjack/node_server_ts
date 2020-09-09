@@ -1,14 +1,15 @@
-const mongoose = require('mongoose');
-import * as dbHandler from './db-handler';
+const mongoose = require("mongoose");
+import * as dbHandler from "./db-handler";
 import { createMockUser, createUser } from "../controllers";
 
 /**
  * Example user.
  */
 const mockUser = {
+    _id: 1004,
     name: "Collin",
     age: 22,
-    favouriteColour: "Magenta"
+    favouriteColour: "Magenta",
 };
 
 /**
@@ -26,17 +27,14 @@ afterEach(async () => await dbHandler.clearDatabase());
  */
 afterAll(async () => await dbHandler.closeDatabase());
 
-
 /**
  * Product test suite.
  */
-describe('user db', () => {
+describe("user db", () => {
     /**
      * Tests that a valid product can be created through the productService without throwing any errors.
      */
-    it('can be created correctly', async () => {
-        expect(async () => await createMockUser(mockUser))
-            .not
-            .toThrow();
+    it("can be created correctly", async () => {
+        expect(async () => await createMockUser(mockUser)).not.toThrow();
     });
 });
