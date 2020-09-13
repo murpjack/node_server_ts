@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 import { MongoMemoryServer } from "mongodb-memory-server";
 
+import userModel from "../models";
+
+// Data for seeding
+import data from "../seeds/user.seed";
+
 const mongod = new MongoMemoryServer();
 
 /**
@@ -38,6 +43,15 @@ export const clearDatabase = async () => {
   }
 };
 
+/**
+ * Seed user data for user db collection.
+ */
+export const seedDatabase = async () => {
+  const collection = mongoose.connection.collections["users"];
+  // TODO: Use fs and REGEX to find a relative '.seed' file for each collection.
+  collection.insertMany(data, (rej: any) => rej);
+};
+
 export async function dropAllCollections() {
   const collections = Object.keys(mongoose.connection.collections);
   for (const collectionName of collections) {
@@ -56,4 +70,9 @@ export async function dropAllCollections() {
   }
 }
 
-export default { closeDatabase, clearDatabase, dropAllCollections };
+export default {
+  closeDatabase,
+  seedDatabase,
+  clearDatabase,
+  dropAllCollections,
+};

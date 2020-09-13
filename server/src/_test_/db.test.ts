@@ -1,16 +1,7 @@
 const mongoose = require("mongoose");
 import * as dbHandler from "./db-handler";
 import { createMockUser, createUser } from "../controllers";
-
-/**
- * Example user.
- */
-const mockUser = {
-    _id: 1004,
-    name: "Collin",
-    age: 22,
-    favouriteColour: "Magenta",
-};
+import { mockUser } from "./dummy-data";
 
 /**
  * Connect to a new in-memory database before running any tests.
@@ -32,7 +23,7 @@ afterAll(async () => await dbHandler.closeDatabase());
  */
 describe("user db", () => {
     /**
-     * Tests that a valid product can be created through the productService without throwing any errors.
+     * Tests that a valid product can be created through the user service without throwing any errors.
      */
     it("can be created correctly", async () => {
         expect(async () => await createMockUser(mockUser)).not.toThrow();

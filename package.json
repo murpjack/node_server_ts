@@ -53,6 +53,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "fluture": "^13.0.1",
+    "mongo-seeding": "^3.4.1",
     "mongodb": "^3.6.1",
     "mongoose": "^5.10.3",
     "node": "^14.8.0",

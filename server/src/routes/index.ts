@@ -1,5 +1,5 @@
 import express from'express';
-import { getAllUsers } from "../controllers";
+import { getAllUsers, createUser } from "../controllers";
 
 export const router = express.Router();
 
@@ -9,7 +9,7 @@ export const router = express.Router();
 // });
 
 router.get("/user/getallusers", getAllUsers);
-// router.post("/user/addsingleuser", controllers);
+router.post("/user/addsingleuser", createUser);
 // router.put("/user/updatesingleuser", controllers);
 // router.delete("/user/removesingleuser", controllers);
 
