@@ -1,19 +1,11 @@
 import userModel from "../models";
-
-interface userType {
-  _id: number;
-  userId: string;
-  age: number;
-  name: string;
-  favouriteColour: string;
-}
+import userType from "./types";
 
 export const getAllUsers = async (req: any, res: any) => {
   await userModel
-    .find({}, (err: any, users: userType[]) => {
-      if (err) {
-        return res.status(400).json({ success: false, error: err });
-      }
+    .find({}, (error: any, users: userType[]) => {
+      if (error) { return res.status(400).json({ success: false, error }) }
+      
       if (!users.length) {
         return res
           .status(404)
@@ -22,7 +14,7 @@ export const getAllUsers = async (req: any, res: any) => {
 
       return res.status(200).json({ success: true, data: users });
     })
-    .catch((err: any) => console.log(err));
+    .catch((error: any) => res.status(400).json({ error, message: "Users not returned!" }));
 };
 
 
@@ -32,13 +24,15 @@ export const createUser = async (req: any, res: any) => {
   if (typeof body !== "object") {
     return res.status(400).json({
       success: false,
-      message: "You must provide a user.",
-    });}
+      message: "The user details you have submitted are invalid.",
+    });
+  }
 
   const user = userModel(body);
   if (!user) {
     // TODO: handle Error response
-    return res.status(400).json({ success: false, message: "err" });}
+    return res.status(400).json({ success: false, message: "err" });
+  }
 
   const query = {
     "_id": body._id,
@@ -50,16 +44,17 @@ export const createUser = async (req: any, res: any) => {
 
   // Don't add any items with a duplicate id
   const duplicatedUsers = await userModel
-    .find(query, (err: any, users: userType[]) => {
-      if (err) { return res.status(400).json({ error: err }) }
+    .find(query, (error: any, users: userType[]) => {
+      if (error) { return res.status(400).json({ success: false, error }) }
 
       if (users.length !== 0) {
         return res
           .status(409)
           .json({ error: `User ${body._id} already exists.` });
       } 
+
     })
-    .catch((err: any) => console.log(err));
+    .catch((error: any) => res.status(400).json({ error, message: "User not created!" }));
 
   if (duplicatedUsers.length === 0) {
     user
@@ -71,15 +66,60 @@ export const createUser = async (req: any, res: any) => {
           message: "User created!",
         })
       )
-      .catch((error: any) => 
-        res.status(400).json({
-          error,
-          message: "User not created!",
-        })
-      );
+      .catch((error: any) => res.status(400).json({ error, message: "User not created!" }));
+  }
+};
+
+export const updateUser = async (req: any, res: any) => {
+  const body = req.body;
+  if (!body) {
+    return res.status(400).json({
+      success: false,
+      error: "The user details you have submitted are invalid.",
+    });
   }
 
-    
+  const updated = await userModel.findOne({ "_id": body._id }, (err, user: userType) => {
+    if (err) { return res.status(404).json({ err, message: "User not found!" }) }
+
+    user._id = body._id;
+    user.name = body.name;
+    user.favouriteColour = body.favouriteColour;
+    user.age = body.age;
+
+    user
+      .save()
+      .then(() => {
+        return res.status(200).json({
+          success: true,
+          id: user._id,
+          message: `Great; ${user.name}'s profile has been updated successfully!`,
+        });
+      })
+      .catch((error: any) => res.status(404).json({ error, message: "User was not updated!" }));
+  });
+};
+
+export const deleteUser = async (req: any, res: any) => {
+  const body = req.body;
+  if (!body) {
+    return res.status(400).json({
+      success: false,
+      error: "The user details you have submitted are invalid.",
+    });
+  }
+
+  await userModel.findOneAndDelete({ _id: body._id }, (error: any, user: userType) => {
+    if (error) { return res.status(400).json({ success: false, error }) }
+
+    if (!user) { return res.status(404).json({ success: false, error: `User not found.` }) }
+
+    return res.status(200).json({ 
+        success: true, 
+        id: user._id,
+        message: `${user.name}'s profile has been deleted!`,
+      });
+  }).catch((error: any) => res.status(404).json({ error, message: "User was not deleted!" }));
 };
 
 
@@ -88,4 +128,4 @@ export const createMockUser = async (user: userType) => {
   await userModel.create(user);
 
 };
-export default { getAllUsers, createUser, createMockUser };
+export default { getAllUsers, createUser, createMockUser, updateUser, deleteUser };

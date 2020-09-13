@@ -6,7 +6,7 @@ import * as dbHandler from "./db-handler";
 // Node instance
 import app from "../app";
 
-import { mockUser, duplicateUser } from "./dummy-data";
+import { mockUser, duplicateUser, updatedUser } from "./dummy-data";
 
 describe("Setup", () => {
 	it("is just testing.", () => {
@@ -37,6 +37,7 @@ describe("API", () => {
 	it("reaches route '/getallusers' and returns status true.", async done => {
 		const response = await request(app).get(`${apiBaseUrl}/getallusers`);
 		expect(response.status).toBe(200);
+		expect(response.status).not.toEqual(400);
 		expect(response.body.success).toBe(true);
 		done();
 	});
@@ -53,6 +54,8 @@ describe("API", () => {
 			.set('Content-Type', 'application/json')
 			.send(mockUser)
 			
+		expect(response.status).toEqual(201);
+		expect(response.status).not.toEqual(400);
      	expect(response.body.id).toEqual(mockUser._id);
 		done();
 	});
@@ -62,16 +65,32 @@ describe("API", () => {
 			.post(`${apiBaseUrl}/addsingleuser`)
 			.set('Content-Type', 'application/json')
 			.send(duplicateUser)
-
+			
 		expect(response.status).toEqual(409);
 		done();
 	});
 
-	it("should UPDATE details of an existing user.", () => {
-	  expect(1).toBe(2);
+	it("should UPDATE details of an existing user.", async done => {
+		const response = await request(app)
+			.put(`${apiBaseUrl}/updatesingleuser`) 
+			.set('Content-Type', 'application/json')
+			.send(updatedUser);
+
+		expect(response.status).toEqual(200);
+		expect(response.status).not.toEqual(400);
+     	expect(response.body.id).toEqual(updatedUser._id);
+		done();
 	});
 
-	// it("should DELETE an existing user from DB.", () => {
-	//   expect(1).toBe(2);
-	// });
+	it("should DELETE an existing user from DB.", async done => {
+	  	const response = await request(app)
+			.del(`${apiBaseUrl}/removesingleuser`) 
+			.set('Content-Type', 'application/json')
+			.send(updatedUser);
+
+		expect(response.status).toEqual(200);
+		expect(response.status).not.toEqual(400);
+     	expect(response.body.id).toEqual(updatedUser._id);
+		done();
+	});
 });

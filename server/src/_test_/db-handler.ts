@@ -4,7 +4,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import userModel from "../models";
 
 // Data for seeding
-import data from "../seeds/user.seed";
+const data = require("../seeds/user.seed");
 
 const mongod = new MongoMemoryServer();
 
@@ -65,7 +65,6 @@ export async function dropAllCollections() {
       // safely ignore this error too
       if (error.message.includes("a background operation is currently running"))
         return;
-      console.log(error.message);
     }
   }
 }

@@ -19,4 +19,15 @@ export const duplicateUser = {
 	age: 38,
 	favouriteColour: "Green"
 };
-export default { mockUser, duplicateUser };
+
+/**
+ * Existing user with updates.
+ */
+export const updatedUser = {
+    _id: 1002,
+    userId: "usr002",
+    name: "Ben Smith",
+    age: 40,
+    favouriteColour: "Mauve"
+};
+export default { mockUser, duplicateUser, updatedUser };

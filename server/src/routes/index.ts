@@ -1,5 +1,5 @@
 import express from'express';
-import { getAllUsers, createUser } from "../controllers";
+import * as controllers from "../controllers";
 
 export const router = express.Router();
 
@@ -8,9 +8,9 @@ export const router = express.Router();
 //   res.json({message: 'pass!'})
 // });
 
-router.get("/user/getallusers", getAllUsers);
-router.post("/user/addsingleuser", createUser);
-// router.put("/user/updatesingleuser", controllers);
-// router.delete("/user/removesingleuser", controllers);
+router.get("/user/getallusers", controllers.getAllUsers);
+router.post("/user/addsingleuser", controllers.createUser);
+router.put("/user/updatesingleuser", controllers.updateUser);
+router.delete("/user/removesingleuser", controllers.deleteUser);
 
 export default router;
